@@ -1,0 +1,9 @@
+[package]
+name = "cosmwasm-math"
+version = "0.0.1"
+authors = ["Simon Warta <webmaster128@users.noreply.github.com>"]
+edition = "2018"
+description = "Math symbols for CosmWasm"
+repository = "https://github.com/CosmWasm/cosmwasm/tree/main/packages/derive"
+license = "Apache-2.0"
+readme = "README.md"
