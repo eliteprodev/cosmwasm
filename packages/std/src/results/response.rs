@@ -111,9 +111,40 @@ impl<T> Response<T> {
 
     /// This creates a "fire and forget" message, by using `SubMsg::new()` to wrap it,
     /// and adds it to the list of messages to process.
+    ///
+    /// See [`Response::add_messages`] for adding multiple messages.
+    ///
+    /// ## Examples
+    ///
+    /// ```
+    /// use cosmwasm_std::{CosmosMsg, Response};
+    ///
+    /// fn make_response_with_msgs(msg1: CosmosMsg, msg2: CosmosMsg) -> Response {
+    ///     Response::new()
+    ///         .add_message(msg1)
+    ///         .add_message(msg2)
+    /// }
+    /// ```
     pub fn add_message(mut self, msg: impl Into<CosmosMsg<T>>) -> Self {
         self.messages.push(SubMsg::new(msg));
         self
+    }
+
+    /// Bulk add "fire and forget" messages to the list of messages to process.
+    ///
+    /// See [`Response::add_message`] for adding a single message.
+    ///
+    /// ## Examples
+    ///
+    /// ```
+    /// use cosmwasm_std::{CosmosMsg, Response};
+    ///
+    /// fn make_response_with_msgs(msgs: Vec<CosmosMsg>) -> Response {
+    ///     Response::new().add_messages(msgs)
+    /// }
+    /// ```
+    pub fn add_messages<M: Into<CosmosMsg<T>>>(self, msgs: impl IntoIterator<Item = M>) -> Self {
+        self.add_submessages(msgs.into_iter().map(SubMsg::new))
     }
 
     /// This takes an explicit SubMsg (creates via eg. `reply_on_error`)
@@ -180,21 +211,6 @@ impl<T> Response<T> {
     ) -> Self {
         self.attributes.extend(attrs.into_iter().map(A::into));
         self
-    }
-
-    /// Bulk add "fire and forget" messages to the list of messages to process.
-    ///
-    /// ## Examples
-    ///
-    /// ```
-    /// use cosmwasm_std::{CosmosMsg, Response};
-    ///
-    /// fn make_response_with_msgs(msgs: Vec<CosmosMsg>) -> Response {
-    ///     Response::new().add_messages(msgs)
-    /// }
-    /// ```
-    pub fn add_messages<M: Into<CosmosMsg<T>>>(self, msgs: impl IntoIterator<Item = M>) -> Self {
-        self.add_submessages(msgs.into_iter().map(SubMsg::new))
     }
 
     /// Bulk add explicit SubMsg structs to the list of messages to process.
