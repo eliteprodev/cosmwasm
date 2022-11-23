@@ -16,6 +16,9 @@ and this project adheres to
   predictable addresses for `MsgInstantiateContract2` ([#1437]).
 - cosmwasm-schema: In contracts, `cosmwasm schema` will now output a separate
   JSON Schema file for each entrypoint in the `raw` subdirectory.
+- cosmwasm-std: Add `Never` type which cannot be instantiated. This can be used
+  as the error type for the `ibc_packet_receive` to gain confidence that the
+  implementations never errors and the transaction does not get reverted.
 
 [#1437]: https://github.com/CosmWasm/cosmwasm/issues/1437
 [#1481]: https://github.com/CosmWasm/cosmwasm/pull/1481
