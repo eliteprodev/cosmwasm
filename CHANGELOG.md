@@ -14,9 +14,13 @@ and this project adheres to
   of CosmWasm earlier than 1.2.0 ([#1481]).
 - cosmwasm-std: Add `instantiate2_address` which allows calculating the
   predictable addresses for `MsgInstantiateContract2` ([#1437]).
+- cosmwasm-std: Add `WasmMsg::Instantiate2` (requires `cosmwasm_1_2`, see
+  `GovMsg::VoteWeighted` above) to instantiate contracts at a predictable
+  address ([#1436]).
 - cosmwasm-schema: In contracts, `cosmwasm schema` will now output a separate
   JSON Schema file for each entrypoint in the `raw` subdirectory.
 
+[#1436]: https://github.com/CosmWasm/cosmwasm/issues/1436
 [#1437]: https://github.com/CosmWasm/cosmwasm/issues/1437
 [#1481]: https://github.com/CosmWasm/cosmwasm/pull/1481
 
